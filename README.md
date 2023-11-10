@@ -4,5 +4,5 @@ This is an asignment from Database System Course (from HCMUT). Our project is to
 ## npm file
 - Make sure that you have already installed npm and Node.js
 - Create npm file (You only need to read this part in case you want to customize your project):
-+ hhh
-+  
+  + Navigate to folder that contains your project
+  + Open Terminal then run ```npm init``` This will create a package.json file, which contains the metadata of your npm file, such as its name, version, description, dependencies, and scripts. You can answer the prompts or use the default values. Make sure the name of your npm file is unique and does not conflict with any existing npm packages.
