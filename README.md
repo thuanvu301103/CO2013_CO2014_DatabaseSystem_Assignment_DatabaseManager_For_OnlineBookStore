@@ -13,3 +13,9 @@ This is an asignment from Database System Course (from HCMUT). Our project is to
     }
     ```
   + To run your npm file, you can use the npm run command in your terminal, followed by the name of the script. For example, you can run ```npm run start```
+## Install necessary package
+Open Terminal then navigate to the folder that contain your project. Run ```npm run setup```
+## MySQL Server
+# Run Project
+- As I mentioned before, just open Termial, navigate to project folder then run ```npm run start```
+- The server is now running on port ```3011```, root url  ```localhost:3011``` 
