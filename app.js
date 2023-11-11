@@ -8,7 +8,7 @@ var mysql = require('mysql');
 //var session = require('express-session');
 //var cookieParser = require('cookie-parser');
 
-const ManagementRoute = require('./routes');
+const HomepageRoute = require('./routes/homepage.js');
 
 
 /*const limiter = rateLimit({
@@ -39,20 +39,8 @@ var app = express();
     saveUninitialized: true,
 }));*/
 
-// Connect to Database
-var con = mysql.createConnection({
-    host: "localhost",  // Change me
-    user: "root",       // Change me
-    password: ""        // Chnage me
-});
-
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected to MySQL Database Server!");
-});
-
 // Router
-app.use("/", ManagementRoute);
+app.use("/homepage", HomepageRoute);
 
 // Running Server
 app.listen(3011, function () {
