@@ -21,6 +21,7 @@ Open Terminal then navigate to the folder that contain your project. Run ```npm 
   + Enter ```http://localhost/phpmyadmin``` in any browser
   + Go to ```User accounts``` tab to get the information
   + Change information in ```app.js```
+- Import data to (file ```ebookstore.sql```) to the server.
 # Run Project
 - As I mentioned before, just open Termial, navigate to project folder then run ```npm run start```
 - The server is now running on port ```3011```, root url  ```localhost:3011```
