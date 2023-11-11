@@ -1,5 +1,4 @@
 var express = require('express');
-var mysql = require('mysql');
 //var url = require('url');
 //var fs = require('fs');
 //var bodyParser = require('body-parser');
@@ -8,7 +7,9 @@ var mysql = require('mysql');
 //var session = require('express-session');
 //var cookieParser = require('cookie-parser');
 
-const ManagementRoute = require('./routes');
+//const homepageRoute = require('./routes/homepage');
+//const documentManagementRoute = require('./routes/document_management');
+//const loanManagementRoute = require('./routes/loan_management');
 
 
 /*const limiter = rateLimit({
@@ -39,22 +40,11 @@ var app = express();
     saveUninitialized: true,
 }));*/
 
-// Connect to Database
-var con = mysql.createConnection({
-    host: "localhost",  // Change me
-    user: "root",       // Change me
-    password: ""        // Chnage me
-});
+//app.use("/homepage", homepageRoute);
 
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected to MySQL Database Server!");
-});
+//app.use("/documentManagement", documentManagementRoute);
 
-// Router
-app.use("/", ManagementRoute);
+//app.use("/loanManagement", loanManagementRoute)
 
-// Running Server
-app.listen(3011, function () {
-    console.log("Server is running on port 3011");
-});
+
+app.listen(3011);
