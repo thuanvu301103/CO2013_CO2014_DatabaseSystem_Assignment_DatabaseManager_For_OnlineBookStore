@@ -27,6 +27,120 @@ USE `ebookstore`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `VAN_PHONG_PHAM`
+--
+
+CREATE TABLE `VAN_PHONG_PHAM` (
+  `ma_san_pham` INT NOT NULL,
+  `chat_lieu` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ma_san_pham`, `chat_lieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `VAN_PHONG_PHAM`
+--
+
+INSERT INTO `VAN_PHONG_PHAM` (`ma_san_pham`, `chat_lieu`) VALUES
+(1, 'kim loại'),
+(2, 'gỗ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MA_SERIES`
+--
+
+CREATE TABLE `MA_SERIES` (
+  `ma_series` INT NOT NULL,
+  `chat_lieu` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ma_san_pham`, `chat_lieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `MA_SERIES`
+--
+
+INSERT INTO `MA_SERIES` (`ma_series`, `chat_lieu`) VALUES
+(1, 'kim loại'),
+(2, 'gỗ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CHAT_LIEU`
+--
+
+CREATE TABLE `CHAT_LIEU` (
+  `ma_san_pham` INT NOT NULL,
+  `chat_lieu` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ma_san_pham`, `chat_lieu`),
+  FOREIGN KEY (`ma_san_pham`) REFERENCES `VAN_PHONG_PHAM`(`ma_san_pham`)
+	ON DELETE CASCADE	ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `CHAT_LIEU`
+--
+
+INSERT INTO `CHAT_LIEU` (`ma_san_pham`, `chat_lieu`) VALUES
+(1, 'kim loại'),
+(1, 'thủy tinh'),
+(2, 'gỗ'),
+(2, 'kim loại');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `MAU_SAC`
+--
+
+CREATE TABLE `MAU_SAC` (
+  `ma_san_pham` INT NOT NULL,
+  `mau_sac` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ma_san_pham`, `mau_sac`),
+  FOREIGN KEY (`ma_san_pham`) REFERENCES `VAN_PHONG_PHAM`(`ma_san_pham`)
+	ON DELETE CASCADE	ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `MAU_SAC`
+--
+
+INSERT INTO `MAU_SAC` (`ma_san_pham`, `mau_sac`) VALUES
+(1, 'đỏ'),
+(1, 'đen'),
+(1, 'xám'),
+(2, 'lục');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `BAO_GOM`
+--
+
+CREATE TABLE `BAO_GOM` (
+  `ma_san_pham` INT NOT NULL,
+  `mau_series` INT NOT NULL,
+  PRIMARY KEY (`ma_san_pham`),
+  FOREIGN KEY (`ma_san_pham`) REFERENCES `SACH`(`ma_san_pham`)
+	ON DELETE CASCADE	ON UPDATE CASCADE
+  FOREIGN KEY (`ma_series`) REFERENCES `SERIES_SACH`(`ma_series`)
+	ON DELETE CASCADE	ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `MAU_SAC`
+--
+
+INSERT INTO `BAO_GOM` (`ma_san_pham`, `mau_sac`) VALUES
+(1, 'đỏ'),
+(1, 'đen'),
+(1, 'xám'),
+(2, 'lục');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `borrow`
 --
 
