@@ -1,38 +1,43 @@
-CREATE TABLE `Sanpham` (
-	`Phanloai` VARCHAR(255) NOT NULL,
-    `Giagoc` int(11) NOT NULL,
-    `Phantramchietkhau` int(11) NOT NULL,
-    `Madichvu` int(11) NOT NULL,
-    `Ten` VARCHAR(255) NOT NULL,
-    `Mota` VARCHAR(255) NOT NULL,
-    `Kichthuoc` int(11) NOT NULL,
-    `Soluongtonkho` int(11) NOT NULL,
-    `Giaban` int(11) NOT NULL,
-    `Masanpham` int(11) NOT NULL,
-	PRIMARY KEY(`Masanpham`)
+CREATE TABLE `Donhang` (
+`Ghichu` varchar(255),
+`Nguoinhan` varchar(255) NOT NULL,
+`Trangthai` varchar(255) NOT NULL,
+`Madon` int(11) NOT NULL,
+`Phivanchuyen` int(11) NOT NULL,
+`Tongtien` int(11) NOT NULL,
+`Thoigiangiaohangdukien` varchar(255) NOT NULL,
+`Ngaytaodon` varchar(255) NOT NULL,
+`Mavandon` varchar(255) NOT NULL,
+`Madiachi` int(11) NOT NULL,
+`Manguoidathang` int(11) NOT NULL,
+`Maphuongthcthanhtoan` int(11) NOT NULL,
+`Madichvuvanchuyen` int(11) NOT NULL,
+`Makhachhang` int(11) NOT NULL,
+`Mhuongthucvanchyen` varchar(255) NOT NULL,
+PRIMARY KEY(`Madon`)
 );
-CREATE TABLE `Danhmuc` (
-	`Ten` VARCHAR(255) NOT NULL,
-    `Phanloai` VARCHAR(255) NOT NULL,
-    `Madanhmuc` int(11) NOT NULL,
-    `Madanhmuccha` int(11),
-    PRIMARY KEY(`Madanhmuc`)
+
+CREATE TABLE `Giohang` (
+`Magiohang` int(11) NOT NULL,
+`Sosanphamtronggio` int(11),
+`Makhachhang` int(11) NOT NULL,
+PRIMARY KEY(`Magiohang`)
 );
-CREATE TABLE `Vouchergiamgia` (
-	`Noidung` VARCHAR(255),
-    `Phantramchietkhau` int(11) NOT NULL,
-    `Thoihanapdung` int(11),
-    `Giatridonhangtoithieu` int(11),
-    `Magiamgia` int(11) NOT NULL,
-    PRIMARY KEY(`Magiamgia`)
+
+CREATE TABLE `Themgiohang` (
+`Magiohang` int(11) NOT NULL,
+`Masanpham` int(11) NOT NULL,
+`Soluong` int(11),
+`Tongtien` int(11) NOT NULL,
+PRIMARY KEY(`Magiohang`,`Masanpham`)
 );
-CREATE TABLE `Sohuu` (
-	`Makhachhang` int(11) NOT NULL,
-    `Magiamgia` int(11) NOT NULL,
-    PRIMARY KEY(`Makhachhang`,`Magiamgia`)
+
+CREATE TABLE `Chua` (
+`Madon` int(11) NOT NULL,
+`Masanpham` int(11) NOT NULL,
+`Soluong` int(11),
+`Tongien` int(11) NOT NULL,
+PRIMARY KEY(`Madon`,`Masanpham`)
 );
-CREATE TABLE `Apdung` (
-	`Madon` int(11) NOT NULL,
-    `Magiamgia` int(11) NOT NULL,
-    PRIMARY KEY(`Madon`,`Magiamgia`)
-);
+
+
