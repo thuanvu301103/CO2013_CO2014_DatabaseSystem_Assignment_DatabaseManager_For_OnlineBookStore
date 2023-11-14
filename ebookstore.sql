@@ -1,43 +1,44 @@
-CREATE TABLE `Donhang` (
-`Ghichu` varchar(255),
-`Nguoinhan` varchar(255) NOT NULL,
-`Trangthai` varchar(255) NOT NULL,
-`Madon` int(11) NOT NULL,
-`Phivanchuyen` int(11) NOT NULL,
-`Tongtien` int(11) NOT NULL,
-`Thoigiangiaohangdukien` varchar(255) NOT NULL,
-`Ngaytaodon` varchar(255) NOT NULL,
-`Mavandon` varchar(255) NOT NULL,
+CREATE TABLE `Khachhang` (
+`Makhachhang` int(11) NOT NULL,
+`Hoten` varchar(255) NOT NULL,
+`Gioitinh` varchar(255) NOT NULL,
+`Ngaysinh` int(11) NOT NULL,
+`Tennguoimua` varchar(255),
+`Emailnhanhoadon` varchar(255) NOT NULL,
+`Masothue` int(11) ,
+`Tencongty` varchar(255),
+`Magiohang` int(11),
+PRIMARY KEY(`Makhachhang`)
+);
+
+CREATE TABLE `Sodienthoai` (
+`Makhachhang` int(11) ,
+`Sodienthoai` int(11) ,
+PRIMARY KEY(`Makhachhang`,`Sodienthoai`)
+);
+
+CREATE TABLE `Email` (
+`Makhachhang` int(11) ,
+`Email` varchar(255) ,
+PRIMARY KEY(`Makhachhang`,`Email`)
+);
+
+CREATE TABLE `Vanphongpham` (
+`Masanpham` int(11) ,
+`Thuonghieu` varchar(255) NOT NULL,
+`Xuatxu` varchar(255) NOT NULL,
+`Dotuoisudung` int(11) NOT NULL,
+PRIMARY KEY(`Masanpham`)
+);
+
+CREATE TABLE `Diachi` (
+`Makhachhang` int(11) NOT NULL,
 `Madiachi` int(11) NOT NULL,
-`Manguoidathang` int(11) NOT NULL,
-`Maphuongthcthanhtoan` int(11) NOT NULL,
-`Madichvuvanchuyen` int(11) NOT NULL,
-`Makhachhang` int(11) NOT NULL,
-`Mhuongthucvanchyen` varchar(255) NOT NULL,
-PRIMARY KEY(`Madon`)
+`Tinh_TP` varchar(255) NOT NULL,
+`Quan_huyen` varchar(255) NOT NULL,
+`Xa_phuong` varchar(255) NOT NULL,
+`Sonha` int(11) NOT NULL,
+`Tenduong` int(11) NOT NULL,
+`Macdinh` boolean ,
+PRIMARY KEY(`Makhachhang`,`Madiachi`)
 );
-
-CREATE TABLE `Giohang` (
-`Magiohang` int(11) NOT NULL,
-`Sosanphamtronggio` int(11),
-`Makhachhang` int(11) NOT NULL,
-PRIMARY KEY(`Magiohang`)
-);
-
-CREATE TABLE `Themgiohang` (
-`Magiohang` int(11) NOT NULL,
-`Masanpham` int(11) NOT NULL,
-`Soluong` int(11),
-`Tongtien` int(11) NOT NULL,
-PRIMARY KEY(`Magiohang`,`Masanpham`)
-);
-
-CREATE TABLE `Chua` (
-`Madon` int(11) NOT NULL,
-`Masanpham` int(11) NOT NULL,
-`Soluong` int(11),
-`Tongien` int(11) NOT NULL,
-PRIMARY KEY(`Madon`,`Masanpham`)
-);
-
-
