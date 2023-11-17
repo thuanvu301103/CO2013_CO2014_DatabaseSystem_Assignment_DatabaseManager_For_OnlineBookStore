@@ -14,7 +14,7 @@ CREATE TABLE `Donhang` (
 `Makhachhang` int(11) NOT NULL,
 `Phuongthucvanchuyen` varchar(255) NOT NULL,
 `Manguoidathang` int(11) NOT NULL,
-PRIMARY KEY(`Madon`)
+PRIMARY KEY(`Madon`),
 CONSTRAINT `fk_Khachhang_Donhang` FOREIGN KEY (`Makhachhang`) REFERENCES `Khachhang`(`Makhachhang`),
 CONSTRAINT `fk_Diachi_Donhang` FOREIGN KEY (`Madiachi`) REFERENCES `Diachi`(`Madiachi`),
 CONSTRAINT `fk_Diachia_Donhang` FOREIGN KEY (`Manguoidathang`) REFERENCES `Diachi`(`Makhachhang`),
@@ -32,7 +32,7 @@ CREATE TABLE `Giohang` (
 `Magiohang` int(11) NOT NULL,
 `Sosanphamtronggio` int(11),
 `Makhachhang` int(11) NOT NULL,
-PRIMARY KEY(`Magiohang`)
+PRIMARY KEY(`Magiohang`),
 CONSTRAINT `fk_Khachhang_Giohang` FOREIGN KEY (`Makhachhang`) REFERENCES `Khachhang`(`Makhachhang`)
 );
 
@@ -72,5 +72,5 @@ INSERT INTO `Chua`(`Madon`,`Masanpham`,`Soluong`,`Tongtien`)
 VALUES
 (1000011111,10,1,14000000),
 (1000011112,11,3,14100000),
-(1000011113.22,5,15000000);
+(1000011113,22,5,15000000);
 
