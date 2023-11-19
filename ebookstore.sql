@@ -77,14 +77,14 @@ CREATE TABLE KHACH_HANG (
 INSERT INTO KHACH_HANG VALUES
 (1, 'Nguyễn Văn A', 'Nam', '2003-11-25', NULL, NULL, NULL, NULL, 1),
 (2, 'Trần Văn B', 'Nữ', '2001-10-1', 'Trần Văn B', 'tranvanB@gmail.com', 20000, 'CTTNHH ABC', 2),
-(3, 'Nguyễn Thị C', 'Nam', '2003-11-25', 'Nguyễn Thị C', 'nguyenthiC@gmail.com', 30000, 'CTTNHH ABC', 3),
-(4, 'Lương Tuấn D', 'Nam', '2003-11-25', NULL,'luongtuanD123@gmail.com', 40000, NULL, 4),
-(5, 'Bùi Thị E', 'Nam', '2003-11-25', NULL,'buithiE123@gmail.com', 80000, NULL, 5),
-(6, 'Vũ Văn F', 'Nam', '2003-11-25', NULL,'vuvanF@gmail.com', 50000, NULL, 6),
-(7, 'Dương Thị G', 'None', '2003-11-25', NULL, NULL, NULL, NULL, 7),
-(8, 'Nguyễn Văn H', 'None', '2003-11-25', NULL, NULL, NULL, NULL, 8),
-(9, 'Trần Văn I', 'None', '2003-11-25', 'Trần Văn I', NULL, NULL, 'Cty một thành viên CDE', 9),
-(10, 'Bùi Thị K', 'None', '2003-11-25', NULL, NULL, NULL, 'CTTNHH ABC', 10);
+(3, 'Nguyễn Thị C', 'Nam', '2005-9-25', 'Nguyễn Thị C', 'nguyenthiC@gmail.com', 30000, 'CTTNHH ABC', 3),
+(4, 'Lương Tuấn D', 'Nam', '2012-12-30', NULL,'luongtuanD123@gmail.com', 40000, NULL, 4),
+(5, 'Bùi Thị E', 'Nam', '2003-10-12', NULL,'buithiE123@gmail.com', 80000, NULL, 5),
+(6, 'Vũ Văn F', 'Nam', '2003-1-15', NULL,'vuvanF@gmail.com', 50000, NULL, 6),
+(7, 'Dương Thị G', 'None', '2008-1-3', NULL, NULL, NULL, NULL, 7),
+(8, 'Nguyễn Văn H', 'None', '2012-2-20', NULL, NULL, NULL, NULL, 8),
+(9, 'Trần Văn I', 'None', '2019-5-6', 'Trần Văn I', NULL, NULL, 'Cty một thành viên CDE', 9),
+(10, 'Bùi Thị K', 'None', '2016-10-25', NULL, NULL, NULL, 'CTTNHH ABC', 10);
 
 -- -------------------------------------------------------- Done
 
@@ -180,6 +180,150 @@ INSERT INTO DIA_CHI VALUES
 INSERT INTO DIA_CHI (ma_khach_hang, ma_dia_chi, tinh_TP, quan_huyen, xa_phuong, so_nha_ten_duong) VALUES
 (9, 2, 'Thái Bình', 'Đông Hưng', 'Đông Thái', '57, Hưng Hóa'),
 (10, 1, 'Tp.Hồ Chí Minh', 'Quận 1', 'Bến Nghé', '456, Đồng Khởi');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table PHUONG_THUC_THANH_TOAN
+--
+
+CREATE TABLE PHUONG_THUC_THANH_TOAN (
+    ma_phuong_thuc          int(10)         NOT NULL,
+    ten                     varchar(100)    UNIQUE  NOT NULL,
+    PRIMARY KEY(ma_phuong_thuc)
+);
+
+--
+-- Dumping data for table PHUONG_THUC_THANH_TOAN
+--
+
+INSERT INTO PHUONG_THUC_THANH_TOAN VALUES
+(100,'Thể ghi nợ quốc tế'),
+(101,'Ví điện tử MOMO'),
+(102,'Ví điện tử Zalopay'),
+(103,'Ví điện tử Viettelpay'),
+(104,'Chuyển khoản ngân hàng OCB'),
+(105,'Chuyển khoản ngân hàng VCB'),
+(106,'Chuyển khoản ngân hàng Agribank'),
+(107,'Chuyển khoản ngân hàng MBbank'),
+(108,'Thanh toán khi nhận hàng');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN
+--
+
+CREATE TABLE NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN (
+    ma_dich_vu          int(10)         NOT NULL,
+    ten                 varchar(100)    UNIQUE  NOT NULL,
+    PRIMARY KEY(ma_dich_vu)
+);
+
+--
+-- Dumping data for table NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN
+--
+
+INSERT INTO NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN VALUES
+(200,'Viettelpost'),    (201,'Shoppee'),
+(202,'Lazada'),         (203,'Ninja Van'),
+(204,'Tiki'),           (205,'Bee');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table TINH_THANH
+--
+
+CREATE TABLE TINH_THANH (
+    ma_dich_vu          int(10)         NOT NULL,
+    tinh_thanh          varchar(100)    NOT NULL,
+    PRIMARY KEY(ma_dich_vu, tinh_thanh),
+    FOREIGN KEY(ma_dich_vu) REFERENCES NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN(ma_dich_vu)
+        ON DELETE CASCADE   ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table TINH_THANH
+--
+
+INSERT INTO TINH_THANH VALUES
+(200,'Tp.Hồ Chí Minh'), (200,'Hà Nội'),   (200, 'Huế'),         (200, 'Đà Nẵng'),   (200,'Long An'),
+(201,'Tp.Hồ Chí Minh'), (201,'Hà Nội'),   (201, 'Huế'),         (201, 'Trà Vinh'),  (201,'Vĩnh Long'),
+(201,'Cần Thơ'),        (201,'Bến Tre'),
+(202,'Tp.Hồ Chí Minh'), (202,'Hà Nội'),   (202, 'Thái Bình'),   (202,'Hải Phòng'),  (202,'Hà Tĩnh'),
+(202,'Thanh Hóa'),
+(203,'Tp.Hồ Chí Minh'), (203,'Hà Nội'),   (203, 'Huế'),         (203, 'Đà Nẵng'),   (203,'Long An'),
+(204,'Tp.Hồ Chí Minh'), (204,'Kon Tum'),  (204, 'Huế'),         (204, 'Đà Nẵng'),   (204,'Long An'),
+(205,'Tp.Hồ Chí Minh'), (205,'Hà Nội'),   (205, 'Bình Dương'),         (205, 'Trà Vinh'),  (205,'Đồng Nai'),
+(205,'Nghệ An'),        (205,'Bến Tre');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table PHUONG_THUC_VAN_CHUYEN
+--
+
+CREATE TABLE PHUONG_THUC_VAN_CHUYEN (
+    ma_dich_vu              int(10)         NOT NULL,
+    phuong_thuc_van_chuyen  varchar(100)    NOT NULL,
+    PRIMARY KEY(ma_dich_vu, phuong_thuc_van_chuyen),
+    FOREIGN KEY(ma_dich_vu) REFERENCES NHA_CUNG_CAP_DICH_VU_VAN_CHUYEN(ma_dich_vu)
+        ON DELETE CASCADE   ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table PHUONG_THUC_VAN_CHUYEN
+--
+
+INSERT INTO PHUONG_THUC_VAN_CHUYEN VALUES
+(200,'Nhanh'),  (200,'Hỏa tốc'),    (200,'Tiết kiệm'),
+(201,'Nhanh'),  (201,'Hỏa tốc'),    (201,'Tiết kiệm'),
+(202,'Nhanh'),  (202,'Tiết kiệm'),
+(203,'Nhanh'),  (203,'Hỏa tốc'),    (203,'Tiết kiệm'),
+(204,'Nhanh'),  (204,'Hỏa tốc'),    (204,'Tiết kiệm'),
+(205,'Nhanh'),  (205,'Tiết kiệm');
+
+
+
+-- /////////////////////////////////////////////// Stopped right here
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table DON_HANG
+--
+
+CREATE TABLE DON_HANG (
+    ma_don              int(30)         NOT NULL,
+    ma_khach_hang       int(30)         NOT NULL,
+    ngay_tao_don        date            NOT NULL,
+    nguoi_nhan          varchar(100)    NOT NULL,
+    ghi_chu             varchar(255),
+    trang_thai          varchar(100)    NOT NULL    DEFAULT 'Đang xử lí'
+        CHECK (trang_thai IN ('Đang xử lí', 'Chờ xác nhận', 'Chờ thanh toán', 'Đã giao', 'Bị hủy')),
+    ma_dia_chi          int(10)     NOT NULL,
+    ma_nguoi_dat_hang   int(30)         NOT NULL,
+
+`Phivanchuyen` int(11) NOT NULL,
+`Tongtien` int(11) NOT NULL,
+`Thoigiangiaohangdukien` date NOT NULL,
+
+`Mavandon` varchar(255) NOT NULL,
+
+`Maphuongthucthanhtoan` int(11) NOT NULL,
+`Madichvuvanchuyen` int(11) NOT NULL,
+
+`Phuongthucvanchuyen` varchar(255) NOT NULL,
+
+    PRIMARY KEY(ma_don),
+    FOREIGN KEY (ma_khach_hang) REFERENCES KHACH_HANG(ma_khach_hang),
+    FOREIGN KEY (ma_dia_chi, ma_nguoi_dat_hang) REFERENCES DIA_CHI(ma_dia_chi, ma_nguoi_dat_hang),
+    CONSTRAINT `fk_Diachia_Donhang` FOREIGN KEY (`Manguoidathang`) REFERENCES `Diachi`(`Makhachhang`),
+CONSTRAINT `fk_Phuongthucthanhtoan_Donhang` FOREIGN KEY (`Maphuongthucthanhtoan`) REFERENCES `Phuongthucthanhtoan`(`Maphuongthuc`),
+CONSTRAINT `fk_Nhacungcapdichvuvanchuyen_Donhang` FOREIGN KEY (`Madichvvuvanchuyen`) REFERENCES `Nhacungcapdichvuvanchuyen`(`Madichvu`)
+
+);
 
 -- -------------------------------------------------------- Done
 
