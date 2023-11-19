@@ -24,17 +24,174 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `ebookstore` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `ebookstore`;
 
--- --------------------------------------------------------
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table GIO_HANG
+--
+
+CREATE TABLE GIO_HANG (
+    ma_gio_hang         int(30)         NOT NULL,
+    so_luong_san_pham   int             NOT NULL    DEFAULT 0
+        CHECK (so_luong_san_pham >= 0),
+    PRIMARY KEY (ma_gio_hang)
+);
+
+--
+-- Dumping data for table GIO_HANG
+--
+
+INSERT INTO GIO_HANG VALUES
+(1, 3), (2, 5), (3, 4), (4,2), (5,2), (6,1), (7, 3);
+INSERT INTO GIO_HANG (ma_gio_hang) VALUES
+(8), (9), (10);
+
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table KHACH_HANG
+--
+
+CREATE TABLE KHACH_HANG (
+    ma_khach_hang       int(30)         NOT NULL,
+    ho_ten              varchar(100)    NOT NULL,
+    gioi_tinh           varchar(6)      NOT NULL    DEFAULT 'None'
+        CHECK (gioi_tinh IN ('Nam', 'Nữ', 'None')),
+    ngay_sinh           date            NOT NULL,
+    ten_nguoi_mua       varchar(100)    DEFAULT NULL,
+    email_nhan_hoa_don  varchar(100)    DEFAULT NULL
+        CHECK (email_nhan_hoa_don LIKE '%@%.%'),
+    ma_so_thue          int(20)         DEFAULT NULL,
+    ten_cong_ty         varchar(100)    DEFAULT NULL,
+    ma_gio_hang         int(30)         UNIQUE      DEFAULT NULL,
+    PRIMARY KEY (ma_khach_hang),
+    FOREIGN KEY (ma_gio_hang) REFERENCES GIO_HANG(ma_gio_hang)
+	    ON DELETE SET NULL	ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table KHACH_HANG
+--
+
+INSERT INTO KHACH_HANG VALUES
+(1, 'Nguyễn Văn A', 'Nam', '2003-11-25', NULL, NULL, NULL, NULL, 1),
+(2, 'Trần Văn B', 'Nữ', '2001-10-1', 'Trần Văn B', 'tranvanB@gmail.com', 20000, 'CTTNHH ABC', 2),
+(3, 'Nguyễn Thị C', 'Nam', '2003-11-25', 'Nguyễn Thị C', 'nguyenthiC@gmail.com', 30000, 'CTTNHH ABC', 3),
+(4, 'Lương Tuấn D', 'Nam', '2003-11-25', NULL,'luongtuanD123@gmail.com', 40000, NULL, 4),
+(5, 'Bùi Thị E', 'Nam', '2003-11-25', NULL,'buithiE123@gmail.com', 80000, NULL, 5),
+(6, 'Vũ Văn F', 'Nam', '2003-11-25', NULL,'vuvanF@gmail.com', 50000, NULL, 6),
+(7, 'Dương Thị G', 'None', '2003-11-25', NULL, NULL, NULL, NULL, 7),
+(8, 'Nguyễn Văn H', 'None', '2003-11-25', NULL, NULL, NULL, NULL, 8),
+(9, 'Trần Văn I', 'None', '2003-11-25', 'Trần Văn I', NULL, NULL, 'Cty một thành viên CDE', 9),
+(10, 'Bùi Thị K', 'None', '2003-11-25', NULL, NULL, NULL, 'CTTNHH ABC', 10);
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table SO_DIEN_THOAI
+--
+
+CREATE TABLE SO_DIEN_THOAI (
+    ma_khach_hang       int(30)         NOT NULL,
+    so_dien_thoai       varchar(20)     NOT NULL
+        CHECK (so_dien_thoai NOT LIKE '%[^0-9]%'),
+    PRIMARY KEY (ma_khach_hang, so_dien_thoai),
+    FOREIGN KEY (ma_khach_hang) REFERENCES KHACH_HANG(ma_khach_hang)
+	    ON DELETE CASCADE	ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table SO_DIEN_THOAI
+--
+
+INSERT INTO SO_DIEN_THOAI VALUES
+(1, '0326547925'), (1, '013579631'), (1, '01253656123'), (1, '0569786236'), 
+(2, '0326547925'), (2, '013579631'),
+(3, '0137942689'),
+(5, '0121248525'), (5, '055453565'),
+(6, '0122358525'), (6, '055453565'),
+(8, '0123568225'), (8, '115453565');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table EMAIL
+--
+
+CREATE TABLE EMAIL (
+    ma_khach_hang       int(30)         NOT NULL,
+    email               varchar(100)    NOT NULL
+        CHECK (email LIKE '%@%.%'),
+    PRIMARY KEY (ma_khach_hang, email),
+    FOREIGN KEY (ma_khach_hang) REFERENCES KHACH_HANG(ma_khach_hang)
+	    ON DELETE CASCADE	ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table EMAIL
+--
+
+INSERT INTO EMAIL VALUES
+(1, 'tranvanA123@gmail.com'), (1, 'tranvanA567@gmail.com'), (1, 'tranvanA789@gmail.com'), (1, 'tranvanAabc@gmail.com'), 
+(3, 'nguyenthiC12@gmail.com'), (3, 'nguyenthiC23@gmail.com'),
+(4, 'tuanD@gmail.com'),
+(6, 'vuvanF567@gmail.com'), (6, 'vuvanF123@gmail.com'),
+(9, 'Itranvan12@hotmail.com'), (9, 'Itranvan12@gmail.com'),
+(10, 'k301103@edu.vn'), (10, 'buithik@edu.vn');
+
+-- -------------------------------------------------------- Done
+
+--
+-- Table structure for table DIA_CHI
+--
+
+CREATE TABLE DIA_CHI (
+    ma_khach_hang       int(30)         NOT NULL,
+    ma_dia_chi          int(10)         NOT NULL,
+    tinh_TP             varchar(100)    NOT NULL,
+    quan_huyen          varchar(100)    NOT NULL,
+    xa_phuong           varchar(100)    NOT NULL,
+    so_nha_ten_duong    varchar(200)    NOT NULL,
+    mac_dinh            boolean         DEFAULT FALSE,
+    PRIMARY KEY (ma_khach_hang, ma_dia_chi),
+    FOREIGN KEY (ma_khach_hang) REFERENCES KHACH_HANG(ma_khach_hang)
+        ON DELETE CASCADE   ON UPDATE CASCADE
+);
+
+--
+-- Dumping data for table DIA_CHI
+--
+
+INSERT INTO DIA_CHI VALUES 
+(1, 1, 'Hà Nội', 'Đống Đa', 'Ô Chợ Dừa', 'Số 123, Nguyễn Lương Bằng', TRUE),
+(1, 2, 'Hà Nội', 'Đống Đa', 'Ô Chợ Dừa', 'Số 423, Nguyễn Lương Bằng', FALSE),
+(1, 3, 'Thái Bình', 'Đông Hưng', 'Đông Các', 'Số 58, Lịch Động', FALSE),
+(2, 1, 'Thái Bình', 'Đông Hưng', 'Đông Các', 'Số 37, Trần Quốc Toản', FALSE),
+(2, 2, 'Tp. Hồ Chí Minh', 'Quận 1', 'Phương 7', '789, Bạch Đằng', TRUE),
+(3, 1, 'Long An', 'Bình Thạnh', 'Ô Chợ Dừa', 'Số 123, Nguyễn Lương Bằng', TRUE),
+(7, 1, 'Hà Tĩnh', 'Đống Đa', 'Ô Chợ Dừa', 'Số 423, Nguyễn Lương Bằng', FALSE),
+(7, 2, 'Thái Bình', 'Đông Hưng', 'Đông Các', 'Số 58, Lịch Động', FALSE),
+(7, 3, 'Trà Vinh', 'Thị xã Duyên Hải', 'Phương 1', 'Số 89, đường 5/7', TRUE),
+(8, 1, 'Hà Nội', 'Đống Đa', 'Ô Quan Chưởng', 'Số 423, Nguyễn Lương Bằng', FALSE),
+(9, 1, 'Hải Phòng', 'Thái Hòa', 'Đông Hòa', 'Số 58, đường 3/2', TRUE),
+(10, 2, 'Đà Nẵng', 'Hải Châu', 'Thạch Thắng', '789, Bạch Đằng', TRUE);
+
+INSERT INTO DIA_CHI (ma_khach_hang, ma_dia_chi, tinh_TP, quan_huyen, xa_phuong, so_nha_ten_duong) VALUES
+(9, 2, 'Thái Bình', 'Đông Hưng', 'Đông Thái', '57, Hưng Hóa'),
+(10, 1, 'Tp.Hồ Chí Minh', 'Quận 1', 'Bến Nghé', '456, Đồng Khởi');
+
+-- -------------------------------------------------------- Done
 
 --
 -- Table structure for table `VAN_PHONG_PHAM`
 --
 
-CREATE TABLE `VAN_PHONG_PHAM` (
-  `ma_san_pham` INT NOT NULL,
-  `chat_lieu` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`ma_san_pham`, `chat_lieu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE VAN_PHONG_PHAM (
+  ma_san_pham INT NOT NULL,
+  chat_lieu VARCHAR(15) NOT NULL,
+  PRIMARY KEY (ma_san_pham, chat_lieu)
+);
 
 --
 -- Dumping data for table `VAN_PHONG_PHAM`
@@ -47,24 +204,45 @@ INSERT INTO `VAN_PHONG_PHAM` (`ma_san_pham`, `chat_lieu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `MA_SERIES`
+-- Table structure for table `SERIES_SACH`
 --
 
-CREATE TABLE `MA_SERIES` (
+CREATE TABLE `SERIES_SACH` (
   `ma_series` INT NOT NULL,
+  `chat_lieu` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ma_series`, `chat_lieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `SERIES_SACH`
+--
+
+INSERT INTO `SERIES_SACH` (`ma_series`, `chat_lieu`) VALUES
+(1, 'kim loại'),
+(2, 'gỗ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SACH`
+--
+
+CREATE TABLE `SACH` (
+  `ma_san_pham` INT NOT NULL,
   `chat_lieu` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`ma_san_pham`, `chat_lieu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `MA_SERIES`
+-- Dumping data for table `SERIES_SACH`
 --
 
-INSERT INTO `MA_SERIES` (`ma_series`, `chat_lieu`) VALUES
+INSERT INTO `SACH` (`ma_san_pham`, `chat_lieu`) VALUES
 (1, 'kim loại'),
 (2, 'gỗ');
 
 -- --------------------------------------------------------
+
 
 --
 -- Table structure for table `CHAT_LIEU`
@@ -120,10 +298,10 @@ INSERT INTO `MAU_SAC` (`ma_san_pham`, `mau_sac`) VALUES
 
 CREATE TABLE `BAO_GOM` (
   `ma_san_pham` INT NOT NULL,
-  `mau_series` INT NOT NULL,
+  `ma_series` INT NOT NULL,
   PRIMARY KEY (`ma_san_pham`),
   FOREIGN KEY (`ma_san_pham`) REFERENCES `SACH`(`ma_san_pham`)
-	ON DELETE CASCADE	ON UPDATE CASCADE
+	ON DELETE CASCADE	ON UPDATE CASCADE,
   FOREIGN KEY (`ma_series`) REFERENCES `SERIES_SACH`(`ma_series`)
 	ON DELETE CASCADE	ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -132,11 +310,9 @@ CREATE TABLE `BAO_GOM` (
 -- Dumping data for table `MAU_SAC`
 --
 
-INSERT INTO `BAO_GOM` (`ma_san_pham`, `mau_sac`) VALUES
-(1, 'đỏ'),
-(1, 'đen'),
-(1, 'xám'),
-(2, 'lục');
+INSERT INTO `BAO_GOM` (`ma_san_pham`, `ma_series`) VALUES
+(1, 2),
+(2, 3);
 
 -- --------------------------------------------------------
 
